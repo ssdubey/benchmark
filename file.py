@@ -3,6 +3,8 @@ import subprocess
 import time
 
 from matplotlib import pyplot as plt
+from matplotlib.ticker import FormatStrFormatter
+
 
 keyset = []
 valfloat = []
@@ -15,7 +17,7 @@ for path, dirs, files in os.walk("./size"):
      
     for file in files:
         
-        cmd = ['time', 'ipfs', 'add', './size/' + file]
+        cmd = ['ipfs', 'add', './size/' + file]
         start = time.time()
         subprocess.run(cmd, stdout=subprocess.PIPE)
         elapsed = time.time() - start
@@ -54,5 +56,20 @@ for path, dirs, files in os.walk("./size"):
 #     valfloat.append(float(val))
 
 #plotting
+fig, ax = plt.subplots()
+#ax.yaxis.set_major_formatter(FormatStrFormatter('%.5f'))
 plt.bar(keyset, valfloat, width = 0.2, align='center', color='red', alpha=0.6)
-plt.show()
+valfloat_formatted = [ '%.4f' % elem for elem in valfloat ]
+valfloat_formatted = [float(i) for i in valfloat_formatted]
+#print(valfloat_formatted)
+for i,j in zip(keyset,valfloat_formatted):
+    ax.annotate(str(j),xy=(i,j))
+#plt.show()
+
+# saving the values and plot
+timestamp = time.ctime(time.time()).replace(" ", "_")
+path_to_save = "./output_repo/size/" + str(timestamp)
+cmd = ['cp', 'output', path_to_save]
+
+plt.savefig(path_to_save)
+subprocess.run(cmd, stdout=subprocess.PIPE)
