@@ -140,11 +140,13 @@ def calc_avg(path):
 
 
 # ask user preferences
-param = input("select the parameter for benchmarking: \n1. size \n2. <upcoming>\n")
-act_code = input("1. Perform new experiment\n2. Check the average of existing output: \n")
+#param = input("select the parameter for benchmarking: \n1. size \n2. <upcoming>\n")
+#act_code = input("1. Perform new experiment\n2. Check the average of existing output: \n")
+act_code = utils.User_input.NEW_EXPERIMENT.value
+param = utils.User_input.SIZE_PARAM.value
 
-if act_code == '1':
-    if param == '1':
+if act_code == utils.User_input.NEW_EXPERIMENT.value:
+    if param == utils.User_input.SIZE_PARAM.value:
         path = './input_repo/size'
         
     elif param == '2':
@@ -152,7 +154,7 @@ if act_code == '1':
 
     perform_exp(path)
 elif act_code == '2' :
-    if param == '1':
+    if param == utils.User_input.SIZE_PARAM.value:
         path = './output_repo/size/exp/'
         
     elif param == '2':

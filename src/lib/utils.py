@@ -1,18 +1,31 @@
 encode = {}
-encode['16'] = '16B'
-encode['32'] = '32B'
-encode['64'] = '64B'
-encode['128'] = '128B'
-encode['256'] = '256B'
-encode['512'] = '512B'
-encode['1024'] = '1KB'
-encode['2048'] = '2KB'
-encode['4096'] = '4KB'
-encode['8192'] = '8KB'
-encode['16384'] = '16KB'
-encode['32768'] = '32KB'
-encode['65536'] = '64KB'
-encode['131072'] = '128KB'
-encode['262144'] = '256KB'
-encode['524288'] = '512KB'
-encode['1048576'] = '1MB'
+encode.update({
+    '16':'16B',
+    '32':'32B',
+    '16':'16B',
+    '16':'16B',
+    '32':'32B',
+    '64':'64B',
+    '128':'128B',
+    '256':'256B',
+    '512':'512B',
+    '1024':'1KB',
+    '2048':'2KB',
+    '4096':'4KB',
+    '8192':'8KB',
+    '16384':'16KB',
+    '32768':'32KB',
+    '65536':'64KB',
+    '131072':'128KB',
+    '262144':'256KB',
+    '524288':'512KB',
+    '1048576':'1MB',
+    '2097152':'2MB'
+    })
+
+from enum import Enum
+
+class User_input(Enum):
+    SIZE_PARAM = '1'
+    NEW_EXPERIMENT = '1'
+    CALC_AVERAGE = '2'
