@@ -1,8 +1,8 @@
 script1="$1"
 #script2="$2"
 chmod +x "$script1"
-chmod +x "$script2"
-for i in {1..10}
+#chmod +x "$script2"
+for i in {1..20}
 do
 ./"$script1"
 #./"$script2"
