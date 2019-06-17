@@ -1,5 +1,0 @@
-badgerdb
-fresh PUBLIC ipfs for each run of the input
-input varies from 16B to 2MB in power of 2
-in most of the input files the extra data is appended over the data of smaller file. This should not matter until block size of 256kb. 
-experiments should be performed to verify the effects

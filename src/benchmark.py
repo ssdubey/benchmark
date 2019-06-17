@@ -6,6 +6,7 @@ import numpy as np
 import lib.utils as utils
 
 from matplotlib import pyplot as plt
+import matplotlib.patches as mpatches
 from matplotlib.ticker import FormatStrFormatter
 
 
@@ -46,6 +47,7 @@ def perform_exp(path):
 
     fig, ax = plt.subplots()
     plt.figure(figsize=(20,10))
+    #plt.patches.Patch(label='data')
     plt.xlabel('size of file')
     plt.ylabel('time in seconds')
     plt.title('Time taken to add the file in ipfs ')
@@ -62,102 +64,38 @@ def perform_exp(path):
 
     # saving the output in output directory with timestamp
     timestamp = time.ctime(time.time()).replace(" ", "_")
-    path_to_save = "./output_repo/size/exp/" + str(timestamp)
-    cmd = ['cp', './output_repo/output', path_to_save + '.txt']
+    path_to_save = "/home/shashank/work/benchmark/test_output" + str(timestamp)
+    #cmd = ['cp', '/home/shashank/work/benchmark/test_output', path_to_save + '.txt']
 
     plt.savefig(path_to_save)
     subprocess.run(cmd, stdout=subprocess.PIPE)
     #plt.show()
 
-def calc_avg(path):
-    exp_time_lst = {}                            # a map to add all the time values against the key 'size'
-    exp_count = 0                           # assuming that all the experiments involved all the keys
-    for file in os.listdir(path):
-        if file.endswith(".txt"):
-            readfd = open(path + file, "r")
-            lines = readfd.read()
-            lines = lines.split("\n")
-            del lines[-1]
-            for line in lines:
-                    kv = line.split(' ')
-                    key = kv[0]
-                    if key in exp_time_lst:
-                        exp_time_lst[key].append(float(kv[1]))
-                    else:
-                        lst = []
-                        lst.append(float(kv[1]))
-                        exp_time_lst[key] = lst
 
-            exp_count = int(exp_count) + 1
-            readfd.close()            
 
-    # exp_time_lst contains the sum of all the keys from all the files
-    # calculate avg now
-    avg_map = {}
-    for key in exp_time_lst:
-        if exp_count != 0:
-            avg_map[key] = sum(exp_time_lst[key]) / exp_count
-        else : # this should never happen
-            print("exp_count is 0 for " + key)
 
-    stdev_map = {}
-    for key in exp_time_lst:
-        stdev_map[key] = statistics.stdev(exp_time_lst[key])
+perform_exp()
 
-    keys = avg_map.keys()
-    values = avg_map.values()
-    yerr = stdev_map.values()
+# # ask user preferences
+# param = input("select the parameter for benchmarking: \n1. size \n2. <upcoming>\n")
+# act_code = input("1. Perform new experiment\n2. Check the average of existing output: \n")
+# #act_code = utils.User_input.NEW_EXPERIMENT.value
+# #param = utils.User_input.SIZE_PARAM.value
 
-    # plotting the output
-    encoded_key = []
-    for key in keys:
-        k = utils.encode[key]
-        encoded_key.append(k)
-
-    fig, ax = plt.subplots()
-    plt.figure(figsize=(20,10))
-    plt.xlabel('size of file')
-    plt.ylabel('time in seconds')
-    plt.title('Average over all the experiments performed')
-    plt.bar(encoded_key, values, 0.35, yerr=yerr)
-
-    timestamp = time.ctime(time.time()).replace(" ", "_")
-    path_to_save = "./output_repo/size/avg/" + str(timestamp)
-    plt.savefig(path_to_save)
-
-    # updating file with key avg_value std_dev
-    f = open(path_to_save + '.txt',"a+")
-    for key in keys:
-        f.write(str(key) + ' ' + str(avg_map[key]) + ' ' + str(stdev_map[key]) + '\n')
-    f.close()
-    #plt.show()
-
-    # print(stdev_map)
-    # print(avg_map)
-    # print(exp_count)
-                
+# if act_code == utils.User_input.NEW_EXPERIMENT.value:
+#     if param == utils.User_input.SIZE_PARAM.value:
+#         path = '/home/shashank/work/benchmark/input_repo/size/input_set1'
         
+#     elif param == '2':
+#         print("upcoming")
 
-
-# ask user preferences
-#param = input("select the parameter for benchmarking: \n1. size \n2. <upcoming>\n")
-#act_code = input("1. Perform new experiment\n2. Check the average of existing output: \n")
-act_code = utils.User_input.NEW_EXPERIMENT.value
-param = utils.User_input.SIZE_PARAM.value
-
-if act_code == utils.User_input.NEW_EXPERIMENT.value:
-    if param == utils.User_input.SIZE_PARAM.value:
-        path = './input_repo/size'
+#     perform_exp(path)
+# elif act_code == '2' :
+#     if param == utils.User_input.SIZE_PARAM.value:
+#         path = './output_repo/size/docker_op_collect/output2/'
         
-    elif param == '2':
-        print("upcoming")
+#     elif param == '2':
+#         print("upcoming")
 
-    perform_exp(path)
-elif act_code == '2' :
-    if param == utils.User_input.SIZE_PARAM.value:
-        path = './output_repo/size/exp/'
-        
-    elif param == '2':
-        print("upcoming")
+#     calc_avg(path)
 
-    calc_avg(path)

@@ -1,0 +1,18 @@
+# this script will create a fresh private ipfs node with given profile (badgerdb is hardcoded)
+
+ipfs shutdown
+sleep 3
+cp ~/.ipfs/swarm.key /folder/benchmark/
+rm -r ~/.ipfs/
+ipfs init #--profile=badgerds
+cp /folder/benchmark/swarm.key ~/.ipfs/swarm.key
+IPFS_PATH=~/.ipfs ipfs bootstrap rm --all
+IPFS_PATH=~/.ipfs ipfs bootstrap add /ip4/172.17.0.15/tcp/4001/ipfs/QmS5tLGVLR3RbjEAFLhRdT1hNKUkegkene9AL7BcGeitgh
+export LIBP2P_FORCE_PNET=1
+IPFS_PATH=~/.ipfs ipfs daemon &
+sleep 6
+python3 /folder/benchmark/src/benchmark.py
+
+#dir=$(date +%Y%m%d_%H%M%S)
+#mkdir dir
+#cp /folder/benchmark/output_repo /

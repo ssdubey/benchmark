@@ -1,7 +1,7 @@
 # this script will copy the output from the docker to the main computer in a folder named as current time
 
 directory=$(date +%Y%m%d_%H%M%S)
-pa=/home/shashank/work/benchmark/docker_stuff/$directory
+pa=/home/shashank/work/benchmark/output_repo/$directory
 scp -r /folder/benchmark/output_repo/ shashank@192.168.1.108:$pa
 rm /folder/benchmark/output_repo/size/exp/*
 

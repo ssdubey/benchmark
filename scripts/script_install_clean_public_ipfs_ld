@@ -1,0 +1,14 @@
+# this script will create a fresh private ipfs node with given profile (badgerdb is hardcoded)
+
+ipfs shutdown
+sleep 4 
+rm -r ~/.ipfs/
+ipfs init
+configjson=`cat ~/.ipfs/config`
+jq 'del(.Datastore.Spec.mounts[0])' <<< "$configjson" > ~/.ipfs/config
+/folder/ipfs-ds-convert convert
+export LIBP2P_FORCE_PNET=0
+IPFS_PATH=~/.ipfs ipfs daemon &
+sleep 4
+#python3 /folder/benchmark/src/benchmark.py
+
