@@ -1,0 +1,108 @@
+Machine configuration:
+Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz
+RAM: 16GB
+
+Following experiments are done on docker container:
+
+output1
+
+badgerdb
+fresh PRIVATE ipfs for each run of the input
+input varies from 16B to 2MB in power of 2
+in most of the input files the extra data is appended over the data of smaller file. This should not matter until block size of 256kb. 
+experiments should be performed to verify the effects.
+
+---------------------------------------
+
+output2
+
+badgerdb
+fresh PUBLIC ipfs for each run of the input
+input varies from 16B to 2MB in power of 2
+in most of the input files the extra data is appended over the data of smaller file. This should not matter until block size of 256kb. 
+experiments should be performed to verify the effects
+
+---------------------------------------
+
+output3
+
+
+leveldb
+fresh PRIVATE ipfs for each run of the input
+input varies from 16B to 2MB in power of 2
+in most of the input files the extra data is appended over the data of smaller file. This should not matter until block size of 256kb. 
+experiments should be performed to verify the effects
+
+---------------------------------------
+
+output4
+output5
+output6
+output7
+
+leveldb
+fresh PUBLIC ipfs for each run of the input
+input varies from 16B to 2MB in power of 2
+in most of the input files the extra data is appended over the data of smaller file. This should not matter until block size of 256kb. 
+experiments should be performed to verify the effects
+
+when ipfs is started in loop it throws some errors:
+
+---generating 2048-bit RSA keypair...17:47:30.477 ERROR     flatfs: could not store final value of disk usage to file, future estimates may be inaccurate flatfs.go:883
+17:47:30.477 ERROR   cmd/ipfs: error from node construction:  failure writing to dagstore: mkdir /root/.ipfs/blocks/X3: no such file or directory daemon.go:332
+
+
+---Error: cannot acquire lock: Lock FcntlFlock of /root/.ipfs/repo.lock failed: resource temporarily unavailable
+
+verify if output is affected due to this in any way. At the end `ps` command shows that the ipfs process is up. 
+`ipfs shutdown` says daemon not running, but `ps` shows it does. 
+
+it is found that the above error was due to executing commands over ipfs before daemon getting fully started. inserting sleep(4) is handling the situation.
+--------------------------------------
+
+output8
+output9
+
+without swarm key, may be should not consider this output
+all same as output3, but showing ipfs issue as output4+
+
+---------------------------------------
+
+output10
+
+badgerdb 
+fresh PRIVATE ipfs on single node for each loop of input
+corresponding to test case 1 of size parameter
+
+---------------------------------------
+
+output11
+
+leveldb
+fresh PRIVATE ipfs on single node for each loop of input
+corresponding to test case 4 of size parameter
+
+---------------------------------------
+
+output12
+
+fs
+fresh PRIVATE ipfs on single node for each loop of input
+corresponding to test case 4 of size parameter
+
+---------------------------------------
+
+output13
+
+badgerdb
+2 node PRIVATE ipfs setup. Each loop has a new ipfs setup on the slave node. master node continues with the same ipfs. 
+corresponding to test case no. 2 of size parameter
+
+---------------------------------------
+
+output14
+
+leveldb
+2 node PRIVATE ipfs setup. Each loop has a new ipfs setup on the slave node. master node continues with the same ipfs. 
+corresponding to test case no. 5 of size parameter
+

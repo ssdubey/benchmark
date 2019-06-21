@@ -7,11 +7,11 @@ rm -r ~/.ipfs/
 ipfs init #--profile=badgerds
 cp /folder/benchmark/swarm.key ~/.ipfs/swarm.key
 IPFS_PATH=~/.ipfs ipfs bootstrap rm --all
-IPFS_PATH=~/.ipfs ipfs bootstrap add /ip4/172.17.0.15/tcp/4001/ipfs/QmS5tLGVLR3RbjEAFLhRdT1hNKUkegkene9AL7BcGeitgh
+IPFS_PATH=~/.ipfs ipfs bootstrap add /ip4/172.17.0.2/tcp/4001/ipfs/QmVe6WFWUciUzwESzYnc8ut9oJmivCyS6xuJ77ZbrfLDtB
 export LIBP2P_FORCE_PNET=1
 IPFS_PATH=~/.ipfs ipfs daemon &
 sleep 6
-python3 /folder/benchmark/src/benchmark.py
+#python3 /folder/benchmark/src/throughput.py
 
 #dir=$(date +%Y%m%d_%H%M%S)
 #mkdir dir

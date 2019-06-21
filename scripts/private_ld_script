@@ -7,11 +7,12 @@ rm -r ~/.ipfs/
 ipfs init
 cp /folder/benchmark/swarm.key ~/.ipfs/swarm.key
 configjson=`cat ~/.ipfs/config`
+echo "converting into leveldb"
 jq 'del(.Datastore.Spec.mounts[0])' <<< "$configjson" > ~/.ipfs/config
 /folder/ipfs-ds-convert convert
 IPFS_PATH=~/.ipfs ipfs bootstrap rm --all
-IPFS_PATH=~/.ipfs ipfs bootstrap add /ip4/172.17.0.15/tcp/4001/ipfs/QmS5tLGVLR3RbjEAFLhRdT1hNKUkegkene9AL7BcGeitZh
+#IPFS_PATH=~/.ipfs ipfs bootstrap add /ip4/172.17.0.2/tcp/4001/ipfs/QmU2X9j96fpXLTRe9pYsTK8TMsscPK95CbQs2A4oNNyTdK
 export LIBP2P_FORCE_PNET=1
 IPFS_PATH=~/.ipfs ipfs daemon &
 sleep 6
-python3 /folder/benchmark/src/benchmark.py
+#python3 /folder/benchmark/src/throughput.py

@@ -1,0 +1,6 @@
+ipfs shutdown
+rm -r ~/.ipfs
+ipfs init
+ipfs daemon &
+sleep 5
+echo "daemon started"

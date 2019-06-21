@@ -1,0 +1,6 @@
+1. for the ease of working (to save from entering password and user input for experiment or average)
+we will do the average separately 
+scp all the outputs once at the end
+make the code run without user input or hardcoded input
+
+2. modifying the script to take only one parameter

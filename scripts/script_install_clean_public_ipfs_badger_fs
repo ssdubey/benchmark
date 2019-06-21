@@ -1,8 +1,0 @@
-# this script will create a fresh private ipfs node with given profile (badgerdb is hardcoded)
-
-ipfs shutdown
-rm -r ~/.ipfs/
-ipfs init --profile=badgerds
-export LIBP2P_FORCE_PNET=0
-IPFS_PATH=~/.ipfs ipfs daemon &
-python3 /folder/benchmark/src/benchmark.py
